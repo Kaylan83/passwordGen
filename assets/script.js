@@ -1,9 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-var upperCase = lowerCase.toUpperCase();
-var specialChar = "!#$%&'()*+,-./:;<=>?@\[]^_`{|}~";
-var numbers ="0123456789";
+var charArray = ["abcdefghijklmnopqrstuvwxyz","ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", "!#$%&'()*+,-./:;<=>?@\[]^_`{|}~"]
+
 var passLength;
 var lowerCheck;
 var upperCheck;
@@ -61,69 +59,72 @@ function generatePassword() {
   var changeAtr = document.getElementById("characterTypes");
 
   if (lowerCheck && upperCheck && numberCheck && specialCheck){
-    characters += upperCase + lowerCase + numbers + specialChar;
+    characters += charArray[0] + charArray[1] + charArray[2] + charArray[3];
     
   
    } else if (upperCheck && numberCheck && specialCheck) {
-    characters += upperCase + numbers + specialChar; 
+    characters += charArray[1] + charArray[2] + charArray[3]; 
   
    } else if (lowerCheck  && numberCheck && specialCheck) {
-     characters += lowerCase + numbers + specialChar;
+     characters += charArray[0] + charArray[2] + charArray[3];
   
    }else if (lowerCheck && upperCheck && specialCheck) {
-     characters += upperCase + lowerCase + specialChar;
+     characters += charArray[0] + charArray[1] + charArray[3];
   
    } else if (lowerCheck && upperCheck && numberCheck){
-     characters += upperCase + lowerCase + numbers;
+     characters += charArray[0] + charArray[1] + charArray[2];
   
-   } else if (lowerCheck &&  numberCheck) {
-     characters += lowerCase + numbers;
+   } else if (upperCheck && lowerCheck) {
+    characters += charArray[0] + charArray[1];
+ 
+  } else if (lowerCheck &&  numberCheck) {
+     characters += charArray[0] + charArray[2];
     
    } else if (lowerCheck && specialCheck) {
-     characters += lowerCase + specialChar;
+     characters += charArray[0] + charArray[3];
     
    } else if (upperCheck && numberCheck) {
-     characters += upperCase + numbers ;
+     characters += charArray[1] + charArray[2] ;
   
    } else if (upperCheck && specialCheck) {
-     characters += upperCase + specialChar;
+     characters += charArray[1] + charArray[3];
   
-   }  else if (upperCheck && lowerCheck) {
-     characters += upperCase + lowerCase;
-  
-   } else if (numberCheck && specialCheck) {
-     characters += numbers + specialChar;
+   }  else if (numberCheck && specialCheck) {
+     characters += charArray[2] + charArray[3];
     
   } else if (lowerCheck) {
-    characters = lowerCase;
+    characters = charArray[0];
 
   } else if (upperCheck) {
-    characters = upperCase;
+    characters = charArray[1];
 
   } else if (numberCheck) {
-    characters = numbers;
+    characters = charArray[2];
 
   } else if (specialCheck) {
-    characters = specialChar;
+    characters = charArray[3];
 
-  }  
+  } 
+   
+  
+   if (characters.length > 0){
+     changeAtr.textContent = ("Please select the characters you want to include in your password:");
+     changeAtr.setAttribute("style", "color: black");
+    
+   }  else {
+    
+     changeAtr.textContent=("please choose at least one type of characters to create your password:")
+     changeAtr.setAttribute("style", "color: red");
 
+   }  
     for ( var i = 0; i < passLength; i++) {
      
       password += characters.charAt(Math.floor(Math.random() * characters.length))
     }
 
-    if (characters.length > 0){
-      changeAtr.textContent = ("Please select the characters you want to include in your password:");
-      changeAtr.setAttribute("style", "color: black");
-    }  else {
-      console.log(characters.length)
-      changeAtr.textContent=("please choose at least one type of characters to create your password:")
-      changeAtr.setAttribute("style", "color: red");
 
-    }  
-      return password;
-
+     
+    return password;
   }
 
   function resetForm() {
