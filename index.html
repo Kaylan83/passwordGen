@@ -11,10 +11,31 @@
     <div class="wrapper">
       <header>
         <h1>Password Generator</h1>
+
       </header>
       <div class="card">
         <div class="card-header">
           <h2>Generate a Password</h2>
+          
+          
+        <form id="passForm"> 
+            <label id= "passLengthLabel" for="passwordLength"> Please enter your desired password length between 8 and 128:</label>
+            <input placeholder="Enter Password length" id="passwordLength">
+                
+
+        
+          <ul>
+            <h5 id = "characterTypes"> Please select the characters you want to include in your password:</h5>
+            <label for="lowerCase"> Lowercase</label>
+            <input type="checkbox" id= "lowerCase" onclick="askUser">
+            <label for="upperCase"> UpperCase</label>
+            <input type="checkbox" id= "upperCase" onclick="askUser">
+            <label for="numbers"> Numbers</label>
+            <input type="checkbox" id= "numbers" onclick="askUser">
+            <label for="specialChar"> Special Characters</label>
+            <input type="checkbox" id= "specialChar" onclick="askUser">
+          </ul>
+        </form> 
         </div>
         <div class="card-body">
           <textarea

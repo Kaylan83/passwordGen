@@ -12,70 +12,53 @@ var specialCheck;
 
 
 function checkLength() {
-  var userInput = prompt("please Enter the desiered length between 8 and 128")
-  passLength = parseInt(userInput);
-  if (passLength <8 || passLength >128 || passLength === NaN){
-    alert("please enter a passowrd length between 8 and 128");
-    checkLength();
-  } else if (isNaN(passLength)) {
-     alert ("please enter numerical value between 8 and 128");
-     checkLength();
+
+  var changeAtr = document.getElementById("passLengthLabel");
+   var userInput = document.getElementById("passwordLength");
+  
+  passLength = parseInt(userInput.value);
+  
+    if (passLength < 8 || passLength >128 ) {
+     
+      changeAtr.setAttribute("style", "color: red");
+                  
+    } else if (isNaN(passLength)) {
+      changeAtr.textContent=("Please enter a Numerical value between 8 and 128")
+      changeAtr.setAttribute("style", "color: red");
+      
+    } else {
+      changeAtr.textContent=("Please enter your desired password length between 8 and 128:")
+      changeAtr.setAttribute("style", "color: black")
+      return passLength;
+    }
+  
+}
+
+function askUser(userChoice) {
+ 
+   var checkBox = document.getElementById(userChoice);
+  if (checkBox.checked == true){
+    return  true;
   } else {
-    return passLength;
+    return false;
   }
 }
-
-function askUser(userInput) {
-   userInput = userInput.toLowerCase();
-  if (userInput ==="y") {
-    return check = true;
-    
-  } else if (userInput ==="n") {
-    return check = false;
-  } else {
-    alert ("please enter y for Yes, or no for No");
-    askUser();
-  }
-
-}
-
- function askLower() {
- var userInput = prompt("Do you want lowercase characters in your password. Please enter Y for yes or N for no");
- lowerCheck = askUser(userInput);
-
- }
-
- function askUpper() {
-  var userInput = prompt("Do you want uppercase characters in your password. Please enter Y for yes or N for no");
-  upperCheck = askUser(userInput);
- }
-
-function askNumber() {
-  var userInput = prompt("Do you want numbers in your password. Please enter Y for yes or N for no");
-  numberCheck = askUser(userInput);
-}
-  function askSpecial() {
-  var userInput = prompt("Do you want special characters in your password. Please enter Y for yes or N for no");
- specialCheck = askUser(userInput);
-
-}
-
 
 function generatePassword() {
   checkLength();
   console.log(passLength);
-  askLower();
+
+  lowerCheck = askUser("lowerCase");
   console.log(lowerCheck);
-  askUpper();
+  upperCheck = askUser("upperCase");
   console.log(upperCheck);
-  askNumber();
+  numberCheck = askUser("numbers");
   console.log(numberCheck);
-  askSpecial();
+  specialCheck = askUser("specialChar");
   console.log(specialCheck);
-  
- 
   var characters="";
   var password="";
+  var changeAtr = document.getElementById("characterTypes");
 
   if (lowerCheck && upperCheck && numberCheck && specialCheck){
     characters += upperCase + lowerCase + numbers + specialChar;
@@ -113,7 +96,7 @@ function generatePassword() {
     
   } else if (lowerCheck) {
     characters = lowerCase;
-    
+
   } else if (upperCheck) {
     characters = upperCase;
 
@@ -123,30 +106,49 @@ function generatePassword() {
   } else if (specialCheck) {
     characters = specialChar;
 
-  }  else {
-    alert ("please choose at least one type of characters to create your password")
-    generatePassword();
-  }
+  }  
 
-  
     for ( var i = 0; i < passLength; i++) {
      
       password += characters.charAt(Math.floor(Math.random() * characters.length))
     }
+
+    if (characters.length > 0){
+      changeAtr.textContent = ("Please select the characters you want to include in your password:");
+      changeAtr.setAttribute("style", "color: black");
+    }  else {
+      console.log(characters.length)
+      changeAtr.textContent=("please choose at least one type of characters to create your password:")
+      changeAtr.setAttribute("style", "color: red");
+
+    }  
       return password;
-    
+
+  }
+
+  function resetForm() {
+    document.getElementById("passForm").reset();
+  }
+
+  function resetTitles (){
     
   }
+
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  if (passLength < 8 || passLength >128 || isNaN(passLength)){
   
+  resetForm();
+  
+  }else {
+    passwordText.value = "Your Secured Password is:  " + password;
+    resetForm();
+  }
+} 
 
-}
-  
 // Add event listener to generate button
+
 generateBtn.addEventListener("click", writePassword);
-  
