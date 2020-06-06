@@ -8,7 +8,7 @@ var upperCheck;
 var numberCheck;
 var specialCheck;
 
-
+// a function to check the password length desired by the user
 function checkLength() {
 
   var changeAtr = document.getElementById("passLengthLabel");
@@ -32,6 +32,7 @@ function checkLength() {
   
 }
 
+//a function to check if a checkbox was selected or not
 function askUser(userChoice) {
  
    var checkBox = document.getElementById(userChoice);
@@ -41,17 +42,12 @@ function askUser(userChoice) {
     return false;
   }
 }
-
+// a function with a set of conditions to see what the user want to include in the password and concat it to one string
 function generatePassword() {
   checkLength();
-  console.log(passLength);
-
   lowerCheck = askUser("lowerCase");
-  console.log(lowerCheck);
   upperCheck = askUser("upperCase");
-  console.log(upperCheck);
   numberCheck = askUser("numbers");
-  console.log(numberCheck);
   specialCheck = askUser("specialChar");
   console.log(specialCheck);
   var characters="";
@@ -107,26 +103,26 @@ function generatePassword() {
   } 
    
   
-   if (characters.length > 0){
-     changeAtr.textContent = ("Please select the characters you want to include in your password:");
-     changeAtr.setAttribute("style", "color: black");
+  if (characters.length > 0){
+    changeAtr.textContent = ("Please select the characters you want to include in your password:");
+    changeAtr.setAttribute("style", "color: black");
     
-   }  else {
+  }  else {
     
-     changeAtr.textContent=("please choose at least one type of characters to create your password:")
-     changeAtr.setAttribute("style", "color: red");
+    changeAtr.textContent=("please choose at least one type of characters to create your password:")
+    changeAtr.setAttribute("style", "color: red");
 
    }  
+
     for ( var i = 0; i < passLength; i++) {
      
       password += characters.charAt(Math.floor(Math.random() * characters.length))
     }
 
-
-     
-    return password;
+      return password;
   }
 
+  // a function to rest the form after the information entered
   function resetForm() {
     document.getElementById("passForm").reset();
   }
@@ -144,7 +140,7 @@ function writePassword() {
   
   resetForm();
   
-  }else {
+  }else if (password !==""){
     passwordText.value = "Your Secured Password is:  " + password;
     resetForm();
   }
